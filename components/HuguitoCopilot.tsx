@@ -69,10 +69,8 @@ function SimpleMarkdown({ text = "" }: { text?: string }) {
 function HumandLogo() {
   return (
     <div style={{ display:"flex", alignItems:"center", gap:8 }}>
-      <div style={{ width:32, height:32, borderRadius:10, background:brand, display:"flex", alignItems:"center", justifyContent:"center", boxShadow:"0 2px 8px rgba(79,70,229,0.3)" }}>
-        <span style={{ color:"#fff", fontWeight:900, fontSize:13 }}>H</span>
-      </div>
-      <span style={{ fontWeight:700, color:"#0f172a", fontSize:17 }}>humand</span>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/humand-logo.png" alt="humand" style={{ height:28, width:"auto" }} />
       <span style={{ fontSize:11, background:"#eff6ff", color:"#2563eb", padding:"2px 8px", borderRadius:999, fontWeight:600 }}>Help Center</span>
     </div>
   );
