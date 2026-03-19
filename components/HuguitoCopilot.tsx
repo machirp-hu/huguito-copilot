@@ -42,26 +42,52 @@ function HuguitoAvatar({ size = 36, bStyle = {} }: { size?: number; bStyle?: Rea
 
 function SimpleMarkdown({ text = "" }: { text?: string }) {
   const lines = text.split('\n');
+  const mdLinkRe = /\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g;
+
+  function renderLine(line: string, i: number) {
+    if (!line.trim()) return <div key={i} style={{ height:6 }} />;
+
+    // Bare URL
+    if (/^https?:\/\/\S+$/.test(line.trim())) {
+      return (
+        <a key={i} href={line.trim()} target="_blank" rel="noopener noreferrer"
+          style={{ display:"inline-block", marginTop:6, padding:"7px 12px", borderRadius:8, background:"#eff6ff", color:"#2563eb", fontWeight:600, fontSize:12, textDecoration:"none", border:"1px solid #bfdbfe" }}>
+          💬 Contactar a soporte →
+        </a>
+      );
+    }
+
+    // Line contains a markdown link [text](url)
+    if (mdLinkRe.test(line)) {
+      mdLinkRe.lastIndex = 0;
+      const nodes: React.ReactNode[] = [];
+      let last = 0, m: RegExpExecArray | null;
+      while ((m = mdLinkRe.exec(line)) !== null) {
+        if (m.index > last) nodes.push(line.slice(last, m.index));
+        nodes.push(
+          <a key={m.index} href={m[2]} target="_blank" rel="noopener noreferrer"
+            style={{ display:"inline-block", marginTop:6, padding:"7px 12px", borderRadius:8, background:"#eff6ff", color:"#2563eb", fontWeight:600, fontSize:12, textDecoration:"none", border:"1px solid #bfdbfe" }}>
+            💬 {m[1]} →
+          </a>
+        );
+        last = m.index + m[0].length;
+      }
+      if (last < line.length) nodes.push(line.slice(last));
+      return <div key={i} style={{ marginBottom:2 }}>{nodes}</div>;
+    }
+
+    const parts = line.split(/(\*\*[^*]+\*\*)/g);
+    const rendered = parts.map(function(p, j) {
+      return p.startsWith('**') && p.endsWith('**') ? <strong key={j}>{p.slice(2,-2)}</strong> : p;
+    });
+    if (/^\d+\.\s/.test(line)) return <div key={i} style={{ paddingLeft:12, marginBottom:2 }}>• {rendered}</div>;
+    if (/^-\s/.test(line))     return <div key={i} style={{ paddingLeft:12, marginBottom:2, color:"#475569" }}>· {rendered}</div>;
+    return <div key={i} style={{ marginBottom:2 }}>{rendered}</div>;
+  }
+
   return (
     <div style={{ fontSize:13, lineHeight:1.6, color:"#1e293b" }}>
-      {lines.map(function(line, i) {
-        if (!line.trim()) return <div key={i} style={{ height:6 }} />;
-        if (line.startsWith('http')) {
-          return (
-            <a key={i} href={line.trim()} target="_blank" rel="noopener noreferrer"
-              style={{ display:"inline-block", marginTop:6, padding:"7px 12px", borderRadius:8, background:"#eff6ff", color:"#2563eb", fontWeight:600, fontSize:12, textDecoration:"none", border:"1px solid #bfdbfe" }}>
-              💬 Contactar a soporte →
-            </a>
-          );
-        }
-        const parts = line.split(/(\*\*[^*]+\*\*)/g);
-        const rendered = parts.map(function(p, j) {
-          return p.startsWith('**') && p.endsWith('**') ? <strong key={j}>{p.slice(2,-2)}</strong> : p;
-        });
-        if (/^\d+\.\s/.test(line)) return <div key={i} style={{ paddingLeft:12, marginBottom:2 }}>• {rendered}</div>;
-        if (/^-\s/.test(line))     return <div key={i} style={{ paddingLeft:12, marginBottom:2, color:"#475569" }}>· {rendered}</div>;
-        return <div key={i} style={{ marginBottom:2 }}>{rendered}</div>;
-      })}
+      {lines.map(function(line, i) { return renderLine(line, i); })}
     </div>
   );
 }
