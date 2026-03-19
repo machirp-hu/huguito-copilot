@@ -62,7 +62,7 @@ function SimpleMarkdown({ text = "" }: { text?: string }) {
     // Line contains a markdown link [text](url)
     if (mdLinkRe.test(line)) {
       mdLinkRe.lastIndex = 0;
-      const nodes: React.ReactNode[] = [];
+      const nodes: (JSX.Element | string)[] = [];
       let last = 0, m: RegExpExecArray | null;
       while ((m = mdLinkRe.exec(line)) !== null) {
         if (m.index > last) nodes.push(line.slice(last, m.index));
