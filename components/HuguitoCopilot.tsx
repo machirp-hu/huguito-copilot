@@ -34,24 +34,8 @@ function HuguitoAvatar({ size = 36, bStyle = {} }: { size?: number; bStyle?: Rea
   const merged: React.CSSProperties = { width:size, height:size, borderRadius:"50%", overflow:"hidden", flexShrink:0, ...bStyle };
   return (
     <div style={merged}>
-      <svg viewBox="0 0 100 100" width={size} height={size}>
-        <circle cx="50" cy="52" r="44" fill="#1e2e8a"/>
-        <circle cx="93" cy="52" r="4" fill="#2a3fa0"/>
-        <circle cx="7"  cy="52" r="4" fill="#2a3fa0"/>
-        <circle cx="50" cy="8"  r="4" fill="#2a3fa0"/>
-        <circle cx="50" cy="96" r="4" fill="#2a3fa0"/>
-        <circle cx="79" cy="21" r="4" fill="#2a3fa0"/>
-        <circle cx="21" cy="21" r="4" fill="#2a3fa0"/>
-        <circle cx="79" cy="83" r="4" fill="#2a3fa0"/>
-        <circle cx="21" cy="83" r="4" fill="#2a3fa0"/>
-        <ellipse cx="35" cy="42" rx="12" ry="13" fill="white"/>
-        <ellipse cx="65" cy="42" rx="12" ry="13" fill="white"/>
-        <circle cx="37" cy="44" r="7" fill="#1a1a6e"/>
-        <circle cx="67" cy="44" r="7" fill="#1a1a6e"/>
-        <circle cx="33" cy="40" r="3" fill="white"/>
-        <circle cx="63" cy="40" r="3" fill="white"/>
-        <path d="M38 62 Q50 72 62 62" stroke="white" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
-      </svg>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/huguito.png" alt="Huguito" width={size} height={size} style={{ width:"100%", height:"100%", objectFit:"cover" }} />
     </div>
   );
 }
