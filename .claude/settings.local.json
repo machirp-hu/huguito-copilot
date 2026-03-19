@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(claude-api)",
+      "Skill(claude-api:*)",
+      "Bash(npm install:*)",
+      "Bash(ls ~/.nvm/versions/node/*/bin/node)",
+      "Bash(git --version)",
+      "Bash(gh --version)"
+    ]
+  }
+}
