@@ -41,7 +41,9 @@ function HuguitoAvatar({ size = 36, bStyle = {} }: { size?: number; bStyle?: Rea
 }
 
 function SimpleMarkdown({ text = "" }: { text?: string }) {
-  const lines = text.split('\n');
+  // Join markdown links that got split across lines: [text]\n(url) → [text](url)
+  const normalized = text.replace(/\]\s*\n\s*\(/g, '](');
+  const lines = normalized.split('\n');
   const mdLinkRe = /\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g;
 
   function renderLine(line: string, i: number) {
