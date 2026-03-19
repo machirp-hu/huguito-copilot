@@ -76,6 +76,17 @@ function HumandLogo() {
   );
 }
 
+function PreHeader() {
+  return (
+    <div style={{ background:"linear-gradient(135deg,#1a237e 0%,#283593 50%,#1a237e 100%)", padding:"10px 24px", display:"flex", alignItems:"center", justifyContent:"center", gap:12 }}>
+      <span style={{ border:"1.5px solid rgba(255,255,255,0.6)", color:"#fff", fontSize:11, fontWeight:700, padding:"3px 10px", borderRadius:999, letterSpacing:"0.08em", flexShrink:0 }}>SERIE A</span>
+      <p style={{ margin:0, fontSize:13, color:"rgba(255,255,255,0.92)", lineHeight:1.4 }}>
+        Recaudamos <strong style={{ color:"#fff" }}>USD 66M</strong> para acelerar el crecimiento global, la innovación de producto y hacer crecer el equipo. <strong style={{ color:"#fff", cursor:"pointer" }}>Leer más.</strong>
+      </p>
+    </div>
+  );
+}
+
 function Header({ onOpenChat }: { onOpenChat: () => void }) {
   return (
     <header style={{ position:"sticky", top:0, zIndex:40, background:"rgba(255,255,255,0.93)", backdropFilter:"blur(12px)", borderBottom:"1px solid #f1f5f9", boxShadow:"0 1px 3px rgba(0,0,0,0.04)" }}>
@@ -480,6 +491,7 @@ export default function HuguitoCopilot() {
   return (
     <div style={{ minHeight:"100vh", background:"#f8fafc", fontFamily:"-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" }}>
       <style>{GLOBAL_CSS}</style>
+      <PreHeader />
       <Header onOpenChat={openChat} />
       <Hero onOpenChat={openChat} />
       <main style={{ maxWidth:1200, margin:"0 auto", padding:"48px 24px" }}>
