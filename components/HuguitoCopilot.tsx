@@ -421,8 +421,9 @@ function HuguitoChat({ onClose }: { onClose: () => void }) {
       const data = await res.json();
       const reply: string = data.reply;
       histRef.current.push({ role:"assistant", content:reply });
-      if (reply.startsWith("ESCALAR_ZENDESK")) {
-        addMsg({ type:"bot", text:reply.replace("ESCALAR_ZENDESK","").trim(), showFeedback:false, isZendesk:true });
+      if (reply.includes("ESCALAR_ZENDESK")) {
+        const WHATSAPP_URL = "https://api.whatsapp.com/send?phone=541153845652&text=Hola!%0AMe%20comunico%20con%20el%20Centro%20de%20Soporte%20de%20Humand%20porque%20tengo%20una%20duda%20que%20dejar%C3%A9%20debajo.%0AMis%20datos%20son%20estos%3A%0A%E2%9C%85%20Mi%20nombre%20de%20usuario%3A%0A%E2%9C%85%20Nombre%20de%20mi%20empresa%3A%20%0A%E2%9C%85%20Mi%20duda%20es%3A%20";
+        addMsg({ type:"bot", text:"No tengo información específica sobre este tema. Te paso el link para que te comuniques directamente con soporte 👇\n" + WHATSAPP_URL, showFeedback:false, isZendesk:true });
       } else {
         addMsg({ type:"bot", text:reply, showFeedback:true });
       }
